@@ -1,0 +1,249 @@
+@media(min-width: 1300px){
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+  }
+  
+  
+  header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  header h1 {
+    margin-left: 15px;
+  }
+  
+  
+  .controls {
+    display: flex;
+    gap: 10px;
+  }
+  
+  
+  button {
+    padding: 8px 16px;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    filter: blur(0); /* Reset iniziale */
+    transform: scale(1); /* Stato normale */
+  }
+  
+  button:hover {
+    background-color: #666;
+    transform: scale(1.05); /* Leggero ingrandimento */
+    filter: blur(0); /* Rimuove la sfocatura */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* Aggiunge profondità */
+  }
+  
+  .btn-danger:hover {
+    background-color: #ff4444;
+  }
+  
+  
+  #container {
+    width: 100%;
+    height: calc(100vh - 50px);
+    background-color: #f0f0f0;
+  }
+  
+  
+  /* Stili per il menu contestuale e le modali */
+  .context-menu {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    padding: 5px 0;
+  }
+  
+  
+  .context-menu-item {
+    padding: 5px 15px;
+    cursor: pointer;
+  }
+  
+  
+  .context-menu-item:hover {
+    background: #f0f0f0;
+  }
+  
+  
+  .modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    gap: 15px;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 2000;
+    width: 300px;
+  }
+  
+  
+  .modal.active {
+    display: block;
+  }
+  
+  
+  .modal header {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  
+  .modal input[type="text"] {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 8px;
+    margin: 5px 0;
+    box-sizing: border-box;
+  }
+  
+  
+  .modal button {
+    padding: 8px 16px;
+    margin-top: 10px;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  
+  .modal button:hover {
+    background-color: #666;
+  }
+  
+  
+  /* Le modali sono ora definite direttamente in index.html */
+  .attrPrimaryKey {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  
+  .attrPrimaryKey label {
+    width: 150px;
+  }
+  
+  #attrPrimaryKey {
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
+    border: 25em solid currentColor;
+    border-radius: 0.15em;
+    transform: translateY(-0.075em);
+  }
+  
+  #attrPrimaryKey {
+    accent-color: #444;
+    cursor: pointer;
+  }
+  
+  
+  footer {
+    color: rgba(0, 0, 0, 0.212);
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    z-index: 10;
+  }
+  
+  
+  * {
+    font-family: "Yatra One", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  #createISAConfirm {
+    border: 1px solid #00d4db;
+    background-color: #00999e;
+  }
+  
+  .select{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 15%;
+    z-index: 1;
+  }
+  
+  #isaModal.active{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  #isaModal {
+    display: none;
+  }
+  
+  .isa-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .isa-props {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+  }
+  
+  #addChildBtn {
+    background-color: #4CAF50;
+  }
+  
+  #confirmISABtn {
+    background-color: #2196F3;
+  }
+  section{
+    position: absolute;
+    top: 25%;
+    z-index: 1;
+  }
+  section button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+  }
+  
+  ::selection{
+    background-color: transparent;
+  }
+  [class^=swal2] {
+    z-index: 3000;
+  }
+}
+
+/*PER SCHERMI PICCOLI*/
+@media (max-width: 1299px){
+  body *{
+    display: none;
+  }
+  body::after{
+    color: red;
+    font-family: sans-serif;
+    content: 'non puoi utilizzare il software, sorry 🥲';
+  }
+}

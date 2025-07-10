@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guida all'Utilizzo dell'ER Diagram Tool</title>
+  <link rel="shortcut icon" href="img/FavIcon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Yatra+One&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      font-family: "Yatra One", serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.6;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: #222;
+    }
+
+    h1 {
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 10px;
+    }
+
+    .section {
+      margin-bottom: 25px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    ol,
+    ul {
+      margin-left: 20px;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 0.9em;
+      text-align: center;
+      color: #777;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Guida all'Utilizzo dell'ER Diagram Tool</h1>
+
+  <div class="section">
+    <h2>Introduzione</h2>
+    <p>L'ER Diagram Tool è un'applicazione web interattiva che permette di creare diagrammi Entità-Relazione. Grazie ad
+      un'interfaccia intuitiva potrai aggiungere entità, definire attributi (inclusi quelli che costituiscono chiavi
+      primarie), creare relazioni e definire gerarchie IS-A. Il diagramma può essere manipolato in tempo reale tramite
+      operazioni di zoom, drag & drop e trasformazione.</p>
+  </div>
+
+  <div class="section">
+    <h2>Creazione di Entità</h2>
+    <ol>
+      <li>
+        <strong>Crea Entità:</strong>
+        <p>Premi il pulsante <em>Crea Entità</em> nell'header per disegnare un rettangolo bianco con il testo "Entità"
+          centrato.</p>
+      </li>
+      <li>
+        <strong>Modifica Nome:</strong>
+        <p>Doppio clic sul testo dell'entità per aprire il modal di modifica del nome. Inserisci il nuovo nome e
+          conferma.</p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h2>Aggiunta di Attributi</h2>
+    <ol>
+      <li>
+        <strong>Aggiungi Attributo:</strong>
+        <p>Seleziona un'entità e premi il pulsante <em>Aggiungi Attributo</em>. Verrà aperto un modal in cui potrai
+          inserire il nome dell'attributo e, se necessario, indicare che si tratta di una chiave primaria (selezionando
+          la checkbox "Primary Key").</p>
+      </li>
+      <li>
+        <strong>Posizionamento e Collegamento:</strong>
+        <p>Gli attributi vengono visualizzati come piccoli cerchi collegati all'entità tramite una linea. La posizione
+          iniziale del cerchio è calcolata in base al numero totale di attributi. Potrai spostare il cerchio lungo il
+          bordo dell'entità per regolare il punto di collegamento e il sistema gestirà automaticamente le transizioni.
+        </p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h2>Creazione di Relazioni (Associazioni)</h2>
+    <ol>
+      <li>
+        <strong>Crea Associazione:</strong>
+        <p>Premi il pulsante <em>Crea Associazione</em> per iniziare a selezionare le entità da collegare. Dovrai
+          selezionare almeno due entità (fino a quattro).</p>
+      </li>
+      <li>
+        <strong>Impostazione Relazione:</strong>
+        <p>Una volta selezionate le entità, verrà mostrato un modal in cui potrai inserire il nome della relazione e
+          specificare la cardinalità per ciascuna entità (es. "1, N" o "0,1"). Il sistema disegnerà quindi un rombo
+          centrale collegato alle entità tramite linee, e posizionerà le etichette delle cardinalità a metà strada.</p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h2>Creazione di Gerarchie IS-A</h2>
+    <ol>
+      <li>
+        <strong>Crea IS-A:</strong>
+        <p>Premi il pulsante <em>Crea IS-A</em> per attivare la modalità gerarchia. Seleziona l'entità padre
+          (super-entità) e, nel modal che appare, inserisci i nomi delle entità figlie. Conferma per creare la gerarchia
+          IS-A, che verrà visualizzata come una relazione gerarchica.</p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h2>Operazioni di Visualizzazione e Manipolazione</h2>
+    <ul>
+      <li>
+        <strong>Zoom:</strong> Usa i pulsanti <em>Zoom +</em> e <em>Zoom -</em> oppure la rotella del mouse per
+        ingrandire o rimpicciolire il diagramma.
+      </li>
+      <li>
+        <strong>Panoramica:</strong> Trascina il canvas per navigare all'interno del diagramma.
+      </li>
+      <li>
+        <strong>Reset della Vista:</strong> Premi il pulsante <em>Reset View</em> per ripristinare la posizione e la
+        scala originali.
+      </li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Salvataggio ed Esportazione</h2>
+    <ul>
+      <li>
+        <strong>Salva Immagine:</strong> Clicca <em>Salva Immagine</em> per esportare il diagramma in formato immagine
+        (PNG).
+      </li>
+      <li>
+        <strong>Esporta JSON:</strong> Premi <em>Esporta JSON</em> per salvare il diagramma in un file JSON, contenente
+        tutte le informazioni relative ad entità, attributi e relazioni.
+      </li>
+      <li>
+        <strong>Carica JSON:</strong> Se hai esportato un diagramma in precedenza, utilizza il pulsante <em>Carica
+          JSON</em> per ricaricarlo e modificarlo ulteriormente.
+      </li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Eliminazione</h2>
+    <p>Per eliminare un elemento (entità, attributo o relazione), selezionalo e premi il pulsante <em>Elimina</em>.
+      Assicurati di aver selezionato l'elemento corretto prima di confermare l'eliminazione.</p>
+  </div>
+
+  <div class="section">
+    <h2>Note Tecniche</h2>
+    <ul>
+      <li><strong>Compatibilità:</strong> Il software è ottimizzato per schermi con risoluzioni elevate (minimo 1300px
+        di larghezza). Su schermi più piccoli viene mostrato un messaggio di incompatibilità.</li>
+      <li><strong>Interazione:</strong> Basato sulla libreria Konva, il tool garantisce un'esperienza interattiva e
+        aggiornamenti in tempo reale durante operazioni come drag & drop e zoom.</li>
+      <li><strong>Salvataggio dei Dati:</strong> L'opzione di esportazione in JSON permette di salvare e condividere i
+        diagrammi, consentendo anche la ripresa di lavori precedenti.</li>
+    </ul>
+  </div>
+
+  <footer>
+    <p>Per ulteriori informazioni o supporto, consulta la documentazione ufficiale oppure contatta direttamente lo <a
+        href="mailto:federico.pot03@gmail.com?bcc=nomecognome@email.com,&cc=nomecognome@email.com">sviluppatore</a></p>
+  </footer>
+</body>
+
+</html>
