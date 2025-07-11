@@ -415,6 +415,8 @@ function createComposePrimaryKey(obj) {
 }
 
 const getAttributePosition = (attr, entity) => {
+    if(entity.rect == undefined) return
+
     const rect = entity.rect;
  
     let x = 0;
@@ -434,6 +436,8 @@ const getAttributePosition = (attr, entity) => {
 };
 
 function calculateTransitionPoints(prevPos, currPos, rect, OFFSET = 15) {
+    if(rect == undefined) return
+
     const transitions = {
         'top-bottom': [
             [rect.x() + rect.width() + OFFSET, rect.y() - OFFSET],    // Angolo sinistro superiore
