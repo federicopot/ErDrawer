@@ -189,7 +189,7 @@ document.getElementById("deleteBtn").addEventListener("click", () => {
         let targetAttr;
         // Cerca attributi delle relazioni
         relationships.forEach((rel) => {
-            rel.attributies.forEach((attr) => {
+            rel.attributes.forEach((attr) => {
                 if (attr.circle === e.target || attr.text === e.target) {
                     targetAttr = { rel, attr };
                 }
@@ -222,7 +222,7 @@ document.getElementById("deleteBtn").addEventListener("click", () => {
         });
 
         relationships.forEach(rel => {
-            targetAttr = rel.attributies.find(attr => attr.circle === e.target || attr.text === e.target) || targetAttr;
+            targetAttr = rel.attributes.find(attr => attr.circle === e.target || attr.text === e.target) || targetAttr;
         });
 
 
@@ -286,7 +286,7 @@ document.getElementById("deleteBtn").addEventListener("click", () => {
 
     function deleteRelationship(rel) {
         // Elimina gli attributi associati alla relazione
-        rel.attributies.forEach((attr) => {
+        rel.attributes.forEach((attr) => {
             attr.circle.destroy();
             attr.text.destroy();
             attr.line.destroy();
@@ -316,7 +316,7 @@ document.getElementById("deleteBtn").addEventListener("click", () => {
             entity.attributes = entity.attributes.filter((a) => a !== attr);
         }
         if (rel) {
-            rel.attributies = rel.attributies.filter((a) => a !== attr);
+            rel.attributes = rel.attributes.filter((a) => a !== attr);
         }
         attr.circle.destroy();
         attr.text.destroy();
@@ -569,7 +569,7 @@ document.getElementById("saveJSONBtn").addEventListener("click", () => {
 //         // Cerca nelle relazioni, se non è stato già trovato
 //         if (!targetAttr) {
 //             relationships.forEach(rel => {
-//                 let foundAttr = rel.attributies.find(attr => attr.circle === atribute || attr.text === atribute);
+//                 let foundAttr = rel.attributes.find(attr => attr.circle === atribute || attr.text === atribute);
 //                 if (foundAttr) {
 //                     targetAttr = foundAttr;
 //                     context = { type: "relationship", reference: rel }; // Salva il contesto

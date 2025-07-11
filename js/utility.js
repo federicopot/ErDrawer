@@ -1,4 +1,4 @@
-export async function showModalName(textNode, modelType) {
+export async function showModalName(textNode, modelType, selectedEntities = []) {
     if (!Object.values(ModelTypes).includes(modelType)) {
         throw new Error("modelType non valido!");
     }
@@ -59,11 +59,63 @@ export async function showModalName(textNode, modelType) {
                 });
                 return formValues
             }
-        break;
-
+            break;
 
         case "RELATIONSHIP":
+            function createCard(n) {
+                return `
+            <div style="margin-top:10px;">
+                <label class="swal2-input">Cardinalità ${n + 1}</label>
+                <input id="swal-input${n + 1}" type="text" placeholder="Cardinalità lato ${n + 1} (es. 1, N)"/>
+            </div>
+        `;
+            }
+
+            if (selectedEntities.length == 0) {
+                return null;
+            }
+
+            let cards = "";
+            selectedEntities.forEach((_, index) => {
+                cards += createCard(index);
+            });
+
+            const inputCardinals = [];
+            const { value: data } = await Swal.fire({
+                title: "Crea associazione",
+                html: `
+            <label>Nome Associazione</label>
+            <input id="swal-input0" class="swal2-input" placeholder="es. essere, associare...">
+            ${cards}
+        `,
+                focusConfirm: false,
+                preConfirm: () => {
+                    const inputName = document.getElementById("swal-input0").value;
+
+                    for (let i = 0; i < selectedEntities.length; i++) {
+                        const val = document.querySelector(`#swal-input${i + 1}`).value;
+                        if (checkCardinals(val)) {
+                            inputCardinals.push(val);
+                        } else {
+                            Swal.showValidationMessage(`Cardinalità ${i + 1} non valida (es. 1, N)`);
+                            return;
+                        }
+                    }
+
+                    if (!inputName.trim()) {
+                        Swal.showValidationMessage("Il nome per l'associazione è obbligatorio.");
+                        return;
+                    }
+
+                    return [inputName, inputCardinals];
+                }
+            });
+
+            if (data) {
+                return data;
+            }
             break;
+
         case "ISA":
 
             break;
@@ -113,6 +165,40 @@ export function getConnectionPoint(entity, index, total) {
     }
     return { x: cx, y: cy };
 }
+export function getConnectionPointRel(relation, index, total) {
+    const rhombus = relation.rhombus;
+    const cx = rhombus.x();
+    const cy = rhombus.y();
+
+    const r = rhombus.radius();
+    const scaleY = rhombus.scaleY(); // ✅ Assicuriamoci che sia una funzione se serve
+    const w = r * 2;
+    const h = r * 2 * scaleY;
+
+    const P = 2 * (w + h);
+    const d = ((index + 1) * P) / (total + 1);
+
+    let x, y;
+    if (d <= w) {
+        // Top
+        x = cx - r + d;
+        y = cy - r * scaleY;
+    } else if (d <= w + h) {
+        // Right
+        x = cx + r;
+        y = cy - r * scaleY + (d - w);
+    } else if (d <= 2 * w + h) {
+        // Bottom
+        x = cx + r - (d - (w + h));
+        y = cy + r * scaleY;
+    } else {
+        // Left
+        x = cx - r;
+        y = cy + r * scaleY - (d - (2 * w + h));
+    }
+
+    return { x, y };
+}
 export function clamp(value, min, max) {
     return Math.max(min, Math.min(max, value));
 }
@@ -139,4 +225,66 @@ export function getEdgePoint(entity, targetPoint) {
             y: centerY + signY * halfHeight,
         };
     }
+}
+
+export function checkCardinals(card) {
+    const parts = card.split(",");
+    if (parts.length !== 2) return false;
+    const cMin = parts[0].trim().toUpperCase();
+    const cMax = parts[1].trim().toUpperCase();
+    const isValidValue = (val) => {
+        if (val === "N") return true;
+        return /^(0|[1-9]\d*)$/.test(val);
+    };
+    if (!isValidValue(cMin) || !isValidValue(cMax)) return false;
+    const numMin = cMin === "N" ? Infinity : parseInt(cMin, 10);
+    const numMax = cMax === "N" ? Infinity : parseInt(cMax, 10);
+    // Impedisci valori totalmente illogici (ad es. 0,0 o N,N)
+    if ((cMin === "0" && cMax === "0") || (cMin === "N" && cMax === "N")) return false;
+    if (numMin > numMax) return false;
+    if (cMin === "N" && cMax !== "N") return false;
+    return true;
+}
+
+function getLineIntersection(p1, p2, p3, p4) {
+    const denom =
+        (p1.x - p2.x) * (p3.y - p4.y) -
+        (p1.y - p2.y) * (p3.x - p4.x);
+
+    if (denom === 0) return null;
+
+    const px =
+        ((p1.x * p2.y - p1.y * p2.x) * (p3.x - p4.x) -
+         (p1.x - p2.x) * (p3.x * p4.y - p3.y * p4.x)) / denom;
+
+    const py =
+        ((p1.x * p2.y - p1.y * p2.x) * (p3.y - p4.y) -
+         (p1.y - p2.y) * (p3.x * p4.y - p3.y * p4.x)) / denom;
+
+    // check if px, py is on both segments
+    if (
+        px < Math.min(p1.x, p2.x) - 0.01 || px > Math.max(p1.x, p2.x) + 0.01 ||
+        px < Math.min(p3.x, p4.x) - 0.01 || px > Math.max(p3.x, p4.x) + 0.01 ||
+        py < Math.min(p1.y, p2.y) - 0.01 || py > Math.max(p1.y, p2.y) + 0.01 ||
+        py < Math.min(p3.y, p4.y) - 0.01 || py > Math.max(p3.y, p4.y) + 0.01
+    ) {
+        return null;
+    }
+
+    return { x: px, y: py };
+}
+
+export function getRhombusIntersection(cx, cy, points, targetX, targetY) {
+    const center = { x: cx, y: cy };
+    const target = { x: targetX, y: targetY };
+
+    for (let i = 0; i < 4; i++) {
+        const p1 = points[i];
+        const p2 = points[(i + 1) % 4];
+
+        const intersect = getLineIntersection(center, target, p1, p2);
+        if (intersect) return intersect;
+    }
+
+    return { x: cx, y: cy }; // fallback
 }
